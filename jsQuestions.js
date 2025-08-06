@@ -171,15 +171,17 @@
    // return the most frequent item (there won't be collisions)
    box.mode = function mode(x) {
       const freqs = x.reduce(
-         function (freqsSoFar, item) {
-            item = JSON.stringify(item);
-            if (freqsSoFar.hasOwnProperty(item)) {
-               freqsSoFar[item] += 1;
-            } else {
-               freqsSoFar[item] = 1;
+         (freqsSoFar, item) => Object.assign(
+            {},
+            freqsSoFar,
+            {
+               [JSON.stringify(item)]: (
+                  freqsSoFar.hasOwnProperty(JSON.stringify(item))
+                  ? freqsSoFar[JSON.stringify(item)] + 1
+                  : 1
+               )
             }
-            return freqsSoFar;
-         },
+         ),
          {}
       );
       return Object.keys(freqs).reduce(
