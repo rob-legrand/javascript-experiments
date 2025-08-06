@@ -77,12 +77,12 @@
    assertDeepEquality(box.invertCase(''), '');
 
    // sum the digits of the number x
-   box.sumDigits = (x) => [...x.toString()].map(
-      (c) => (
-         Number.isInteger(parseInt(c, 10))
-         ? parseInt(c, 10)
-         : 0
-      )
+   box.sumDigits = (x) => [
+      ...x.toString()
+   ].map(
+      Number
+   ).filter(
+      Number.isInteger
    ).reduce(
       (s, n) => s + n,
       0
