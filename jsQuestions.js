@@ -1,7 +1,8 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/qidikiquju/edit?js,console
-// old: https://jsbin.com/mudamefaku/edit?js,console
+// https://jsbin.com/hosiremilo/edit?js,console
+// old: https://jsbin.com/qidikiquju/edit?js,console
+// older: https://jsbin.com/mudamefaku/edit?js,console
 // my solutions to Zirak's js-questions:
 //    https://zirak.me/js-questions/
 //    https://github.com/Zirak/js-questions
@@ -97,13 +98,12 @@
 
    // x is an arbitrarily nested, multidimensional array.
    // return x flattened (all items in 1 dimension)
-   box.flatten = (x) => (
-      Array.isArray(x)
-      ? x.reduce(
-         (a, e) => a.concat(box.flatten(e)),
-         []
+   box.flatten = (x) => x.flatMap(
+      (e) => (
+         Array.isArray(e)
+         ? box.flatten(e)
+         : e
       )
-      : x
    );
 
    assertDeepEquality(box.flatten([]), []);
