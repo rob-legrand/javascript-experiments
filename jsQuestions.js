@@ -1,6 +1,7 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/mudamefaku/edit?js,console
+// https://jsbin.com/qidikiquju/edit?js,console
+// old: https://jsbin.com/mudamefaku/edit?js,console
 // my solutions to Zirak's js-questions:
 //    https://zirak.me/js-questions/
 //    https://github.com/Zirak/js-questions
@@ -80,9 +81,7 @@
    box.sumDigits = (x) => [
       ...x.toString()
    ].map(
-      Number
-   ).filter(
-      Number.isInteger
+      (c) => Number(c) || 0
    ).reduce(
       (s, n) => s + n,
       0
