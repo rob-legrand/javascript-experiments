@@ -98,13 +98,7 @@
 
    // x is an arbitrarily nested, multidimensional array.
    // return x flattened (all items in 1 dimension)
-   box.flatten = (x) => x.flatMap(
-      (e) => (
-         Array.isArray(e)
-         ? box.flatten(e)
-         : e
-      )
-   );
+   box.flatten = (x) => x.flat(Number.POSITIVE_INFINITY);
 
    assertDeepEquality(box.flatten([]), []);
    assertDeepEquality(box.flatten([0, 1, 2]), [0, 1, 2]);
