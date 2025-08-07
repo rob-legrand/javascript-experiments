@@ -1,7 +1,8 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/hosiremilo/edit?js,console
-// old: https://jsbin.com/qidikiquju/edit?js,console
+// https://jsbin.com/buracomula/edit?js,console
+// old: https://jsbin.com/hosiremilo/edit?js,console
+// older: https://jsbin.com/qidikiquju/edit?js,console
 // older: https://jsbin.com/mudamefaku/edit?js,console
 // my solutions to Zirak's js-questions:
 //    https://zirak.me/js-questions/
@@ -125,7 +126,7 @@
       (s, c) => (
          c === '('
          ? s + 1
-         : (c === ')' && s > 0)
+         : s > 0
          ? s - 1
          : undefined
       ),
