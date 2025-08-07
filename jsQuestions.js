@@ -120,15 +120,17 @@
 
    // x is a string. return whether its parentheses are balanced
    // that is, whether every opening ( has a closing )
-   box.isBalanced = (x) => [...x].filter(
-      (c) => c === '(' || c === ')'
-   ).reduce(
+   box.isBalanced = (x) => [...x].reduce(
       (s, c) => (
          c === '('
          ? s + 1
-         : s > 0
-         ? s - 1
-         : undefined
+         : c === ')'
+         ? (
+            s > 0
+            ? s - 1
+            : undefined
+         )
+         : s
       ),
       0
    ) === 0;
