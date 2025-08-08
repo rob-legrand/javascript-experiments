@@ -1,7 +1,8 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/buracomula/edit?js,console
-// old: https://jsbin.com/hosiremilo/edit?js,console
+// https://jsbin.com/jetopakuwa/edit?js,console
+// old: https://jsbin.com/buracomula/edit?js,console
+// older: https://jsbin.com/hosiremilo/edit?js,console
 // older: https://jsbin.com/qidikiquju/edit?js,console
 // older: https://jsbin.com/mudamefaku/edit?js,console
 // my solutions to Zirak's js-questions:
@@ -145,10 +146,10 @@
    // x is an array of numbers. return whether there is an index where the sum
    // before (excluding) it is equal to the sum after (including) it.
    box.hasBalancePoint = (x) => [...x, 0].some(
-      (ignore, index) => x.reduce(
+      (ignore, index) => x.slice(0, index).reduce(
          (s, n) => s + n,
          0
-      ) === 2 * x.slice(index).reduce(
+      ) === x.slice(index).reduce(
          (s, n) => s + n,
          0
       )
