@@ -1,7 +1,8 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/jetopakuwa/edit?js,console
-// old: https://jsbin.com/buracomula/edit?js,console
+// https://jsbin.com/kilaqivehe/edit?js,console
+// old: https://jsbin.com/jetopakuwa/edit?js,console
+// older: https://jsbin.com/buracomula/edit?js,console
 // older: https://jsbin.com/hosiremilo/edit?js,console
 // older: https://jsbin.com/qidikiquju/edit?js,console
 // older: https://jsbin.com/mudamefaku/edit?js,console
@@ -166,17 +167,14 @@
    // return the most frequent item (there won't be collisions)
    box.mode = function mode(x) {
       const freqs = x.reduce(
-         (freqsSoFar, item) => Object.assign(
-            {},
-            freqsSoFar,
-            {
-               [JSON.stringify(item)]: (
-                  freqsSoFar.hasOwnProperty(JSON.stringify(item))
-                  ? freqsSoFar[JSON.stringify(item)] + 1
-                  : 1
-               )
-            }
-         ),
+         (freqsSoFar, item) => ({
+            ...freqsSoFar,
+            [JSON.stringify(item)]: (
+               freqsSoFar.hasOwnProperty(JSON.stringify(item))
+               ? freqsSoFar[JSON.stringify(item)] + 1
+               : 1
+            )
+         }),
          {}
       );
       return Object.keys(freqs).reduce(
