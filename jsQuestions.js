@@ -1,7 +1,8 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/kilaqivehe/edit?js,console
-// old: https://jsbin.com/jetopakuwa/edit?js,console
+// https://jsbin.com/turoloduhe/edit?js,console
+// old: https://jsbin.com/kilaqivehe/edit?js,console
+// older: https://jsbin.com/jetopakuwa/edit?js,console
 // older: https://jsbin.com/buracomula/edit?js,console
 // older: https://jsbin.com/hosiremilo/edit?js,console
 // older: https://jsbin.com/qidikiquju/edit?js,console
@@ -188,26 +189,15 @@
 
    // x is an array of at least 2 unique members
    // return 0 if it's not sorted, 1 if it's ascending, -1 if it's descending
-   box.sortingType = function sortingType(x) {
-      let isAsc = true;
-      let isDesc = true;
-      x.forEach(function (left, index) {
-         x.slice(index + 1).forEach(function (right) {
-            if (left < right) {
-               isDesc = false;
-            } else if (left > right) {
-               isAsc = false;
-            }
-         });
-      });
-      return (
-         isAsc
-         ? 1
-         : isDesc
-         ? -1
-         : 0
-      );
-   };
+   box.sortingType = (x) => Number(
+      x.slice(1).every(
+         (element, index) => x[index] <= element
+      )
+   ) - Number(
+      x.slice(1).every(
+         (element, index) => x[index] >= element
+      )
+   );
 
    assertDeepEquality(box.sortingType([0, 1]), 1);
    assertDeepEquality(box.sortingType([-1, 4, 2]), 0);
