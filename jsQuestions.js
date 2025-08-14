@@ -165,26 +165,18 @@
 
    // x is an array of at least 1 item.
    // return the most frequent item (there won't be collisions)
-   box.mode = function mode(x) {
-      const freqs = x.reduce(
-         (freqsSoFar, item) => ({
-            ...freqsSoFar,
-            [JSON.stringify(item)]: (
-               freqsSoFar.hasOwnProperty(JSON.stringify(item))
-               ? freqsSoFar[JSON.stringify(item)] + 1
-               : 1
-            )
-         }),
-         {}
+   box.mode = function (x) {
+      const freqs = x.map(
+         (item) => x.filter(
+            (otherItem) => otherItem === item
+         ).length
       );
-      return Object.keys(freqs).reduce(
-         (best, item) => (
-            freqs[item] > best.freq
-            ? {item: JSON.parse(item), freq: freqs[item]}
-            : best
-         ),
-         {item: '', freq: 0}
-      ).item;
+      const maxFreq = Math.max(...freqs);
+      return x[
+         freqs.findIndex(
+            (freq) => freq >= maxFreq
+         )
+      ];
    };
 
    assertDeepEquality(box.mode([0]), 0);
