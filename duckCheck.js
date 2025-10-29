@@ -1,7 +1,8 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/fehaqoqite/edit?js,console
-// old: https://jsbin.com/nuduroyama/edit?js,console
+// https://jsbin.com/zivovifoju/edit?js,console
+// old: https://jsbin.com/fehaqoqite/edit?js,console
+// older: https://jsbin.com/nuduroyama/edit?js,console
 // older: https://jsbin.com/jaravezida/edit?js,console
 // older: https://jsbin.com/cevilopiqe/edit?js,console
 
@@ -12,22 +13,21 @@
       typeof objectToCheck === typeof prototypeObject
       && Array.isArray(objectToCheck) === Array.isArray(prototypeObject)
       && (
-         !Array.isArray(prototypeObject)
-         || prototypeObject.every(
+         Array.isArray(prototypeObject)
+         ? prototypeObject.every(
             (value, index) => (
                Object.hasOwn(objectToCheck, index)
                && duckCheck(objectToCheck[index], value)
             )
          )
-      )
-      && (
-         typeof prototypeObject !== 'object'
-         || Object.keys(prototypeObject).every(
+         : typeof prototypeObject === 'object'
+         ? Object.keys(prototypeObject).every(
             (prop) => (
                Object.hasOwn(objectToCheck, prop)
                && duckCheck(objectToCheck[prop], prototypeObject[prop])
             )
          )
+         : true
       )
    );
 
