@@ -55,4 +55,15 @@
    console.log(transposeMatrix1(arr34));
    console.log(transposeMatrix2(arr34));
    console.log(transposeMatrix3(arr34));
+
+   const arr43 = [
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      [10, 11, 12]
+   ];
+   console.log(arr43);
+   console.log(transposeMatrix1(arr43));
+   console.log(transposeMatrix2(arr43));
+   console.log(transposeMatrix3(arr43));
 }());
