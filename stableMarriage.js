@@ -1,7 +1,8 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/kimeceheni/edit?js,console
-// old: https://jsbin.com/noyipotuho/edit?js,console
+// https://jsbin.com/denopomawo/edit?js,console
+// old: https://jsbin.com/kimeceheni/edit?js,console
+// older: https://jsbin.com/noyipotuho/edit?js,console
 
 (function () {
    'use strict';
@@ -9,25 +10,41 @@
    const createGaleShapleyMatching = function (askersPrefs, askedsPrefs) {
       let offerStatusMatrix;
 
-      const isEveryoneMatched = function (offerStatusMatrix) {
-         return Object.keys(offerStatusMatrix).every(function (asker) {
-            return Object.keys(offerStatusMatrix[asker]).some(function (asked) {
-               return offerStatusMatrix[asker][asked] === 'matched';
-            });
-         });
-      };
+      const isEveryoneMatched = (offerStatusMatrix) => (
+         Object.keys(offerStatusMatrix).every((asker) => (
+            Object.keys(offerStatusMatrix[asker]).some((asked) => (
+               offerStatusMatrix[asker][asked] === 'matched'
+            ))
+         ))
+      );
 
-      const isPersonMatched = function (offerStatusMatrix, person) {
-         return (
-            offerStatusMatrix.hasOwnProperty(person)
-            ? Object.keys(offerStatusMatrix[person]).some(function (otherPerson) {
-               return offerStatusMatrix[person][otherPerson] === 'matched';
-            })
-            : Object.keys(offerStatusMatrix).some(function (otherPerson) {
-               return offerStatusMatrix[otherPerson][person] === 'matched';
-            })
-         );
-      };
+      /*const isEveryoneMatched = (offerStatusMatrix) => Object.keys(offerStatusMatrix).every(
+         (asker) => Object.keys(offerStatusMatrix[asker]).some(
+            (asked) => offerStatusMatrix[asker][asked] === 'matched'
+         )
+      );*/
+
+      /*const isEveryoneMatched = (offerStatusMatrix) => (
+         Object.keys(offerStatusMatrix).every(
+            (asker) => (
+               Object.keys(offerStatusMatrix[asker]).some(
+                  (asked) => (
+                     offerStatusMatrix[asker][asked] === 'matched'
+                  )
+               )
+            )
+         )
+      );*/
+
+      const isPersonMatched = (offerStatusMatrix, person) => (
+         offerStatusMatrix.hasOwnProperty(person)
+         ? Object.keys(offerStatusMatrix[person]).some((otherPerson) => (
+            offerStatusMatrix[person][otherPerson] === 'matched'
+         ))
+         : Object.keys(offerStatusMatrix).some((otherPerson) => (
+            offerStatusMatrix[otherPerson][person] === 'matched'
+         ))
+      );
 
       offerStatusMatrix = Object.keys(askersPrefs).reduce(function (statusMatrix, asker) {
          statusMatrix[asker] = askersPrefs[asker].reduce(function (statusRow, asked) {
@@ -40,16 +57,16 @@
          if (!isEveryoneMatched(offerStatusMatrix)) {
             Object.keys(askersPrefs).forEach(function (asker) {
                if (!isPersonMatched(offerStatusMatrix, asker)) {
-                  const haventAskedYet = askersPrefs[asker].filter(function (asked) {
-                     return offerStatusMatrix[asker][asked] === 'none';
-                  });
+                  const haventAskedYet = askersPrefs[asker].filter((asked) => (
+                     offerStatusMatrix[asker][asked] === 'none'
+                  ));
                   offerStatusMatrix[asker][haventAskedYet[0]] = 'matched';
                }
             });
             Object.keys(askedsPrefs).forEach(function (asked) {
-               const offers = askedsPrefs[asked].filter(function (asker) {
-                  return offerStatusMatrix[asker][asked] === 'matched';
-               });
+               const offers = askedsPrefs[asked].filter((asker) => (
+                  offerStatusMatrix[asker][asked] === 'matched'
+               ));
                offers.forEach(function (asker, which) {
                   offerStatusMatrix[asker][asked] = (
                      which > 0
@@ -62,22 +79,22 @@
          }
       }());
       return Object.keys(askersPrefs).reduce(function (matching, asker) {
-         matching[asker] = Object.keys(offerStatusMatrix[asker]).filter(function (asked) {
-            return offerStatusMatrix[asker][asked] === 'matched';
-         })[0];
+         matching[asker] = Object.keys(offerStatusMatrix[asker]).filter((asked) => (
+            offerStatusMatrix[asker][asked] === 'matched'
+         ))[0];
          return matching;
       }, {});
    };
 
-   const flipMatching = function (matching) {
-      return Object.keys(matching).reduce(function (flippedMatching, person) {
+   const flipMatching = (matching) => (
+      Object.keys(matching).reduce(function (flippedMatching, person) {
          flippedMatching[matching[person]] = person;
          return flippedMatching;
-      }, {});
-   };
+      }, {})
+   );
 
-   const randomizePrefs = function (prefs) {
-      return prefs.reduce(function (soFar) {
+   const randomizePrefs = (prefs) => (
+      prefs.reduce(function (soFar) {
          const whichChosen = Math.floor(Math.random() * soFar.prefsLeft.length);
          return {
             randomizedPrefs: soFar.randomizedPrefs.concat(soFar.prefsLeft[whichChosen]),
@@ -86,8 +103,8 @@
       }, {
          randomizedPrefs: [],
          prefsLeft: prefs
-      }).randomizedPrefs;
-   };
+      }).randomizedPrefs
+   );
 
    const testPrefs = function (womensPrefs, mensPrefs) {
       console.log(womensPrefs);
@@ -103,24 +120,21 @@
       jane: ['bingley', 'wickham', 'darcy', 'collins'],
       lydia: ['bingley', 'wickham', 'darcy', 'collins']
    };
-
    const mensOriginalPrefs = {
       bingley: ['jane', 'elizabeth', 'lydia', 'charlotte'],
       collins: ['jane', 'elizabeth', 'lydia', 'charlotte'],
       darcy: ['elizabeth', 'jane', 'charlotte', 'lydia'],
       wickham: ['lydia', 'jane', 'elizabeth', 'charlotte']
    };
-
    testPrefs(womensOriginalPrefs, mensOriginalPrefs);
 
-   testPrefs(
-      Object.keys(womensOriginalPrefs).reduce(function (newPrefs, person) {
-         newPrefs[person] = randomizePrefs(womensOriginalPrefs[person]);
-         return newPrefs;
-      }, {}),
-      Object.keys(mensOriginalPrefs).reduce(function (newPrefs, person) {
-         newPrefs[person] = randomizePrefs(mensOriginalPrefs[person]);
-         return newPrefs;
-      }, {})
-   );
+   const womensRandomPrefs = Object.keys(womensOriginalPrefs).reduce(function (newPrefs, person) {
+      newPrefs[person] = randomizePrefs(womensOriginalPrefs[person]);
+      return newPrefs;
+   }, {});
+   const mensRandomPrefs = Object.keys(mensOriginalPrefs).reduce(function (newPrefs, person) {
+      newPrefs[person] = randomizePrefs(mensOriginalPrefs[person]);
+      return newPrefs;
+   }, {});
+   testPrefs(womensRandomPrefs, mensRandomPrefs);
 }());
