@@ -1,6 +1,7 @@
 /*jslint devel */
 /*jshint esnext: true */
-// https://jsbin.com/madovaxuto/edit?js,console
+// https://jsbin.com/hacotekawa/edit?js,console
+// old: https://jsbin.com/madovaxuto/edit?js,console
 
 (function () {
    'use strict';
@@ -31,13 +32,32 @@
       [5, 3]
    ];
 
-   const b = a.reduce(
+   const least = a.reduce(
       (leastSoFar, currentValue) => (
-         lexLessThan(currentValue, leastSoFar)
-         ? currentValue
-         : leastSoFar
-      ),
-      [Number.POSITIVE_INFINITY]
+         lexLessThan(leastSoFar, currentValue)
+         ? leastSoFar
+         : currentValue
+      )
    );
-   console.log(b);
+   console.log(least);
+
+   const greatest = a.reduce(
+      (greatestSoFar, currentValue) => (
+         lexLessThan(currentValue, greatestSoFar)
+         ? greatestSoFar
+         : currentValue
+      )
+   );
+   console.log(greatest);
+
+   const aSorted = a.toSorted(
+      (x, y) => (
+         lexLessThan(x, y)
+         ? -1
+         : lexLessThan(y, x)
+         ? 1
+         : 0
+      )
+   );
+   console.log(aSorted);
 }());
