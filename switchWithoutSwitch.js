@@ -1,16 +1,14 @@
 /*jslint devel */
-// https://jsbin.com/joyuyerafu/edit?js,console
-// old: https://jsbin.com/qiharabowa/edit?js,console
+// https://jsbin.com/bomeculamu/edit?js,console
+// old: https://jsbin.com/joyuyerafu/edit?js,console
+// older: https://jsbin.com/qiharabowa/edit?js,console
 // older: https://jsbin.com/fayavodiru/edit?js,console
 
-const switchOn = function (value, toDo) {
-   if (!Object.hasOwn(toDo, value)) {
-      value = 'default';
-   }
-   if (typeof toDo?.[value] === 'function') {
-      return toDo[value]();
-   }
-};
+const switchOn = (value, toDo) => toDo?.[
+   Object.hasOwn(toDo, value)
+   ? value
+   : 'default'
+]?.();
 
 (function () {
    const s = (
